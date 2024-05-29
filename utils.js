@@ -40,6 +40,8 @@ const eliminaFile = (filename)=>{
   fs.unlinkSync(filePath);
 }
 
+
+
 module.exports = {
   readJSON,
   writeJSON,
