@@ -3,9 +3,11 @@ const app = express();
 const port = 3000;
 const host = 'localhost';
 
+const loginRouter = require('./routers/login.js');
 const  listRouter  = require('./routers/posts.js');
 
 app.use(express.static('public'));
+app.use(express.json());
 
 
 app.get('/', (req, res) => {
@@ -14,9 +16,10 @@ app.get('/', (req, res) => {
         );
 });
 
-
+app.use('/login', loginRouter);
 
 app.use('/posts', express.urlencoded({extended:true}) , listRouter);
+
 
 
 app.listen(port, host, () => {
