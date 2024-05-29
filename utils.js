@@ -2,7 +2,8 @@ let posts = require('./db/posts.json');
 const path = require('path');
 const fs = require('fs');
 const slugify = require('slugify');
-
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const readJSON = (fileName) => {
   const filePath = path.join(__dirname, 'db', `${fileName}.json`);
@@ -41,11 +42,17 @@ const eliminaFile = (filename)=>{
 }
 
 
+const generaToken= (user) =>{
+  const payload = user;
+  const token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: "1m"});
+  return token;
+}
 
 module.exports = {
   readJSON,
   writeJSON,
   updatePosts,
   generateSlug,
-  eliminaFile
+  eliminaFile,
+  generaToken
 };
